@@ -3,7 +3,7 @@ package org.ubi.quant.analysis
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
-object DataExtractEngine {
+object DataExtractEngineHelper {
 
   def main(args: Array[String]): Unit = {
 
@@ -17,14 +17,17 @@ object DataExtractEngine {
 
     val sc = spark.sparkContext
 
-    val df = spark.read.csv("D:\\ML-DATA-SET\\ubiquant-market-prediction\\train.csv")
+    val input: String = args(0)
+    val output: String = args(1)
+
+    val df = spark.read.csv(input)
 
     println(df.show(20))
 
     df
       .write
       .mode(SaveMode.Overwrite)
-      .parquet("C:\\Users\\rahin\\source-code\\Scala\\Ubi-Quant-Market-Prediction\\data-set")
+      .parquet(output)
 
   }
 
