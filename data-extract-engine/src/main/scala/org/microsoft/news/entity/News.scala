@@ -6,5 +6,10 @@ case class News(
                subCategory: String,
                title: String,
                abstractDescription: String,
+               url: String,
+               titleLabel: String,
+               titleType: String,
+               titleWikiDataId: String,
+               titleConfidence: String,
 
                )
