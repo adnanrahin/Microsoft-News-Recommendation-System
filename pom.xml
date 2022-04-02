@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.ubi.quant.analysis</groupId>
-    <artifactId>ubi-quant-market-prediction</artifactId>
+    <groupId>org.microsoft.news</groupId>
+    <artifactId>microsoft-news-recommendation-system</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
