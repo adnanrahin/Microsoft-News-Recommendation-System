@@ -31,9 +31,9 @@ object DataExtractEngineHelper {
         str => {
           val titlesEntities = JSON.parseFull(str(str.length - 1)).toList
 
-          titlesEntities.map {
-            list => {
-              val row = {
+          val extractedTitle = titlesEntities.map {
+            list =>
+              val row: List[Any] = {
                 val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Label").toString)
                 val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map("WikidataId").toString)
                 val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Confidence").toString)
@@ -60,18 +60,14 @@ object DataExtractEngineHelper {
                   titleTypeString,
                   occurrenceOffsetsString,
                   surfaceFormsString)
-
               }
-
-              println(row.mkString("\t"))
-              println("\n")
-
-            }
+              row
           }
 
+          println(extractedTitle.mkString("\t"))
+          println("SIZE -> : " + extractedTitle.size)
         }
       )
-
   }
 
   def isStringOrNone(strList: List[String]): Any = {
