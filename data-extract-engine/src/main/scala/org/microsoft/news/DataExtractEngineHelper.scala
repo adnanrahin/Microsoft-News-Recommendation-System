@@ -13,15 +13,16 @@ object DataExtractEngineHelper {
 
     Logger.getLogger("org").setLevel(Level.ERROR)
 
+    val initialDataPath: String = args(0)
+    val transformDataPath: String = args(1)
+    val masterNode = if (args.length < 3) "local[*]" else args(2)
+
     val spark = SparkSession
       .builder()
       .appName("DataExtractEngine")
-      .master("local[*]")
+      .master(master = masterNode)
       .getOrCreate()
 
-    val sc = spark.sparkContext
-    val initialDataPath: String = args(0)
-    val transformDataPath: String = args(1)
 
     val newsDataLoader = new NewsDataLoader(s"$initialDataPath/news.tsv", spark)
     val newsRDD: RDD[News] = newsDataLoader.loadRDD()
