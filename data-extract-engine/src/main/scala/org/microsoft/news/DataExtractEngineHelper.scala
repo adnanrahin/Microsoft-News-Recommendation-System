@@ -62,17 +62,45 @@ object DataExtractEngineHelper {
               val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map("OccurrenceOffsets").toString)
               val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map("SurfaceForms").toString)
 
-              val wikiDataIdString = wikiDataId
+              val wikiDataIdStringFilter = wikiDataId
                 .map(entity =>
-                  entity.toString.replace("List(", "").replace(")", ""))
-              val entitiesListString = "[" + wikiDataIdString.mkString(",") + "]"
+                  entity
+                    .toString
+                    .replace("List(", "")
+                    .replace(")", "")
+                )
+              val wikiDataIdString = "[" + wikiDataIdStringFilter.mkString(",") + "]"
               val labelString = "[" + label.mkString(",") + "]"
               val confidenceString = "[" + confidence.mkString(",") + "]"
               val titleTypeString = "[" + titleType.mkString(",") + "]"
-              val occurrenceOffsetsString = "[" + occurrenceOffsets.mkString(",") + "]"
-              val surfaceFormsString = "[" + surfaceForms.mkString(",") + "]"
 
-              println(s"$labelString\t$entitiesListString\t$confidenceString\t$titleTypeString\t$occurrenceOffsetsString\t$surfaceFormsString")
+              val occurrenceOffsetsStringFilter = occurrenceOffsets
+                .map(entity =>
+                  entity
+                    .toString
+                    .replace("List(", "")
+                    .replace(")", "")
+                )
+
+              val occurrenceOffsetsString = "[" + occurrenceOffsetsStringFilter.mkString(",") + "]"
+
+              val surfaceFormsStringFilter = surfaceForms
+                .map(entity =>
+                  entity
+                    .toString
+                    .replace("List(", "")
+                    .replace(")", "")
+                )
+
+              val surfaceFormsString = "[" + surfaceFormsStringFilter.mkString(",") + "]"
+
+              println("LABEL: " + labelString)
+              println("WIKIDATAID: " + wikiDataIdString)
+              println("CONFIDENCE: " + confidenceString)
+              println("TITLETYPE: " + titleTypeString)
+              println("OCCURRENCEOFFSETS: " + occurrenceOffsetsString)
+              println("SURFACEFORMS: " + surfaceFormsString)
+
               println()
             }
           }
