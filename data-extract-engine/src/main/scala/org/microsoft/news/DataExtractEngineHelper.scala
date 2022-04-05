@@ -47,10 +47,6 @@ object DataExtractEngineHelper {
                     .replace("List(", "")
                     .replace(")", "")
                 )
-              val wikiDataIdString = "[" + wikiDataIdStringFilter.mkString(",") + "]"
-              val labelString = "[" + label.mkString(",") + "]"
-              val confidenceString = "[" + confidence.mkString(",") + "]"
-              val titleTypeString = "[" + titleType.mkString(",") + "]"
 
               val occurrenceOffsetsStringFilter = occurrenceOffsets
                 .map(entity =>
@@ -60,7 +56,6 @@ object DataExtractEngineHelper {
                     .replace(")", "")
                 )
 
-              val occurrenceOffsetsString = "[" + occurrenceOffsetsStringFilter.mkString(",") + "]"
 
               val surfaceFormsStringFilter = surfaceForms
                 .map(entity =>
@@ -70,7 +65,35 @@ object DataExtractEngineHelper {
                     .replace(")", "")
                 )
 
-              val surfaceFormsString = "[" + surfaceFormsStringFilter.mkString(",") + "]"
+              val wikiDataIdString =
+                if (wikiDataIdStringFilter.nonEmpty)
+                  "[" + wikiDataIdStringFilter.mkString(",") + "]"
+                else None
+
+              val labelString =
+                if (label.nonEmpty)
+                  "[" + label.mkString(",") + "]"
+                else None
+
+              val confidenceString =
+                if (confidence.nonEmpty)
+                  "[" + confidence.mkString(",") + "]"
+                else None
+
+              val titleTypeString =
+                if (titleType.nonEmpty)
+                  "[" + titleType.mkString(",") + "]"
+                else None
+
+              val occurrenceOffsetsString =
+                if (occurrenceOffsetsStringFilter.nonEmpty)
+                  "[" + occurrenceOffsetsStringFilter.mkString(",") + "]"
+                else None
+
+              val surfaceFormsString =
+                if (surfaceFormsStringFilter.nonEmpty)
+                  "[" + surfaceFormsStringFilter.mkString(",") + "]"
+                else None
 
               println("LABEL: " + labelString)
               println("WIKIDATAID: " + wikiDataIdString)
