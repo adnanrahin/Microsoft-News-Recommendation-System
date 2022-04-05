@@ -33,82 +33,58 @@ object DataExtractEngineHelper {
 
           titlesEntities.map {
             list => {
-              val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Label").toString)
-              val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map("WikidataId").toString)
-              val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Confidence").toString)
-              val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Type").toString)
-              val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map("OccurrenceOffsets").toString)
-              val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map("SurfaceForms").toString)
-
-              val wikiDataIdStringFilter = wikiDataId
-                .map(entity =>
-                  entity
-                    .toString
-                    .replace("List(", "")
-                    .replace(")", "")
-                )
-
-              val occurrenceOffsetsStringFilter = occurrenceOffsets
-                .map(entity =>
-                  entity
-                    .toString
-                    .replace("List(", "")
-                    .replace(")", "")
-                )
+              val row = {
+                val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Label").toString)
+                val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map("WikidataId").toString)
+                val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Confidence").toString)
+                val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Type").toString)
+                val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map("OccurrenceOffsets").toString)
+                val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map("SurfaceForms").toString)
 
 
-              val surfaceFormsStringFilter = surfaceForms
-                .map(entity =>
-                  entity
-                    .toString
-                    .replace("List(", "")
-                    .replace(")", "")
-                )
+                val wikiDataIdStringFilter = stringFilterRemoveListWord(wikiDataId)
+                val occurrenceOffsetsStringFilter = stringFilterRemoveListWord(occurrenceOffsets)
+                val surfaceFormsStringFilter = stringFilterRemoveListWord(surfaceForms)
 
-              val wikiDataIdString =
-                if (wikiDataIdStringFilter.nonEmpty)
-                  "[" + wikiDataIdStringFilter.mkString(",") + "]"
-                else None
 
-              val labelString =
-                if (label.nonEmpty)
-                  "[" + label.mkString(",") + "]"
-                else None
+                val wikiDataIdString = isStringOrNone(wikiDataIdStringFilter)
+                val labelString = isStringOrNone(label)
+                val confidenceString = isStringOrNone(confidence)
+                val titleTypeString = isStringOrNone(titleType)
+                val occurrenceOffsetsString = isStringOrNone(occurrenceOffsetsStringFilter)
+                val surfaceFormsString = isStringOrNone(surfaceFormsStringFilter)
 
-              val confidenceString =
-                if (confidence.nonEmpty)
-                  "[" + confidence.mkString(",") + "]"
-                else None
+                List(labelString,
+                  wikiDataIdString,
+                  confidenceString,
+                  titleTypeString,
+                  occurrenceOffsetsString,
+                  surfaceFormsString)
 
-              val titleTypeString =
-                if (titleType.nonEmpty)
-                  "[" + titleType.mkString(",") + "]"
-                else None
+              }
 
-              val occurrenceOffsetsString =
-                if (occurrenceOffsetsStringFilter.nonEmpty)
-                  "[" + occurrenceOffsetsStringFilter.mkString(",") + "]"
-                else None
+              println(row.mkString("\t"))
+              println("\n")
 
-              val surfaceFormsString =
-                if (surfaceFormsStringFilter.nonEmpty)
-                  "[" + surfaceFormsStringFilter.mkString(",") + "]"
-                else None
-
-              println("LABEL: " + labelString)
-              println("WIKIDATAID: " + wikiDataIdString)
-              println("CONFIDENCE: " + confidenceString)
-              println("TITLETYPE: " + titleTypeString)
-              println("OCCURRENCEOFFSETS: " + occurrenceOffsetsString)
-              println("SURFACEFORMS: " + surfaceFormsString)
-
-              println()
             }
           }
 
         }
       )
 
+  }
+
+  def isStringOrNone(strList: List[String]): Any = {
+    if (strList.isEmpty) None else "[" + strList.mkString(",") + "]"
+  }
+
+  def stringFilterRemoveListWord(strList: List[String]): List[String] = {
+    strList.map(entity =>
+      entity
+        .toString
+        .replace("List(", "")
+        .replace(")", "")
+    )
   }
 
 }
