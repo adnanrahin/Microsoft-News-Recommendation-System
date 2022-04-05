@@ -2,7 +2,8 @@ package org.microsoft.news
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+import org.microsoft.news.entity.News
 
 import scala.util.parsing.json.JSON
 
@@ -25,62 +26,55 @@ object DataExtractEngineHelper {
 
     val newsRDD: RDD[String] = sc.textFile(dataPath)
 
-    newsRDD
+    val transformation: RDD[News] = newsRDD
       .map(row => row.split("\t", -1))
-      .foreach(
+      .map(
         str => {
-          val titlesEntities = JSON.parseFull(str(str.length - 1)).toList
 
-          val extractedTitle = titlesEntities.map {
-            list =>
-              val row: List[Any] = {
-                val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Label").toString)
-                val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map("WikidataId").toString)
-                val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Confidence").toString)
-                val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Type").toString)
-                val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map("OccurrenceOffsets").toString)
-                val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map("SurfaceForms").toString)
+          val titlesEntities = JSON.parseFull(str(str.length - 2)).toList
+          val titlesEntitiesFlattenRow = extractEntities(titlesEntities)
 
+          val abstractEntities = JSON.parseFull(str(str.length - 1)).toList
+          val abstractEntitiesFlattenRow = extractEntities(abstractEntities)
 
-                val wikiDataIdStringFilter = stringFilterRemoveListWord(wikiDataId)
-                val occurrenceOffsetsStringFilter = stringFilterRemoveListWord(occurrenceOffsets)
-                val surfaceFormsStringFilter = stringFilterRemoveListWord(surfaceForms)
-
-
-                val wikiDataIdString = isStringOrNone(wikiDataIdStringFilter)
-                val labelString = isStringOrNone(label)
-                val confidenceString = isStringOrNone(confidence)
-                val titleTypeString = isStringOrNone(titleType)
-                val occurrenceOffsetsString = isStringOrNone(occurrenceOffsetsStringFilter)
-                val surfaceFormsString = isStringOrNone(surfaceFormsStringFilter)
-
-                List(labelString,
-                  wikiDataIdString,
-                  confidenceString,
-                  titleTypeString,
-                  occurrenceOffsetsString,
-                  surfaceFormsString)
-              }
-              row
-          }
-
-          println(extractedTitle.mkString("\t"))
-          println("SIZE -> : " + extractedTitle.size)
+          News(
+            str(0),
+            str(1),
+            str(2),
+            str(3),
+            str(4),
+            str(5),
+            titlesEntitiesFlattenRow(0),
+            titlesEntitiesFlattenRow(1),
+            titlesEntitiesFlattenRow(2),
+            titlesEntitiesFlattenRow(3),
+            titlesEntitiesFlattenRow(4),
+            titlesEntitiesFlattenRow(5),
+            abstractEntitiesFlattenRow(0),
+            abstractEntitiesFlattenRow(1),
+            abstractEntitiesFlattenRow(2),
+            abstractEntitiesFlattenRow(3),
+            abstractEntitiesFlattenRow(4),
+            abstractEntitiesFlattenRow(5)
+          )
         }
       )
+
+    val df = spark.createDataFrame(transformation)
+    dataWriter(df,"C:\\Users\\rahin\\source-code\\Scala\\Microsoft-News-Recommendation-System", "news")
+
   }
 
-  def isStringOrNone(strList: List[String]): Any = {
-    if (strList.isEmpty) None else "[" + strList.mkString(",") + "]"
+  final def dataWriter(dataFrame: DataFrame, dataPath: String, directoryName: String): Unit = {
+
+    val destinationDirectory: String = dataPath + "/" + directoryName
+
+    dataFrame
+      .write
+      .mode(SaveMode.Overwrite)
+      .parquet(destinationDirectory)
   }
 
-  def stringFilterRemoveListWord(strList: List[String]): List[String] = {
-    strList.map(entity =>
-      entity
-        .toString
-        .replace("List(", "")
-        .replace(")", "")
-    )
-  }
+
 
 }
