@@ -1,6 +1,7 @@
 package org.microsoft.news.transformer
 
 import org.apache.spark.rdd.RDD
+import org.microsoft.news.constant.Constant._
 import org.microsoft.news.entity.News
 
 import scala.util.parsing.json.JSON
@@ -49,12 +50,12 @@ object NewsDataTransformer {
     val extractedTitle: List[String] = titlesEntities.map {
       list =>
         val row: String = {
-          val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Label").toString)
-          val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map("WikidataId").toString)
-          val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Confidence").toString)
-          val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map("Type").toString)
-          val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map("OccurrenceOffsets").toString)
-          val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map("SurfaceForms").toString)
+          val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map(LABEL).toString)
+          val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map(WIKIDATAID).toString)
+          val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map(CONFIDENCE).toString)
+          val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map(TYPE).toString)
+          val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map(OCCURRENCEOFFSETS).toString)
+          val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map(SURFACEFORMS).toString)
 
 
           val wikiDataIdStringFilter = stringFilterRemoveListWord(wikiDataId)
