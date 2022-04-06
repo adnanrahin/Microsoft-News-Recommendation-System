@@ -7,7 +7,7 @@ import org.microsoft.news.dataloader.NewsDataLoader
 import org.microsoft.news.datawriter.DataFileWriterLocal
 import org.microsoft.news.entity.News
 
-object DataExtractEngineHelper {
+object DataExtractEngine {
 
   def main(args: Array[String]): Unit = {
 
