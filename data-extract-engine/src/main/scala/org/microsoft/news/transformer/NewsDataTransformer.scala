@@ -21,25 +21,45 @@ object NewsDataTransformer {
           val abstractEntities = JSON.parseFull(str(str.length - 1)).toList
           val abstractEntitiesFlattenRow = extractEntities(abstractEntities)
 
+          val newsId: String = str(0)
+          val category: String = str(1)
+          val subCategory: String = str(2)
+          val title: String = str(3)
+          val abstractDescription: String = str(4)
+          val url: String = str(5)
+          val titleLabel: String = titlesEntitiesFlattenRow(0)
+          val titleType: String = titlesEntitiesFlattenRow(1)
+          val titleWikiDataId: String = titlesEntitiesFlattenRow(2)
+          val titleConfidence: String = titlesEntitiesFlattenRow(3)
+          val tittleOccurrenceOffsets: String = titlesEntitiesFlattenRow(4)
+          val titleSurfaceForms: String = titlesEntitiesFlattenRow(5)
+          val abstractLabel: String = abstractEntitiesFlattenRow(0)
+          val abstractType: String = abstractEntitiesFlattenRow(1)
+          val abstractWikiDataId: String = abstractEntitiesFlattenRow(2)
+          val abstractConfidence: String = abstractEntitiesFlattenRow(3)
+          val abstractOccurrenceOffsets: String = abstractEntitiesFlattenRow(4)
+          val abstractSurfaceForms: String = abstractEntitiesFlattenRow(5)
+
+
           News(
-            str(0),
-            str(1),
-            str(2),
-            str(3),
-            str(4),
-            str(5),
-            titlesEntitiesFlattenRow(0),
-            titlesEntitiesFlattenRow(1),
-            titlesEntitiesFlattenRow(2),
-            titlesEntitiesFlattenRow(3),
-            titlesEntitiesFlattenRow(4),
-            titlesEntitiesFlattenRow(5),
-            abstractEntitiesFlattenRow(0),
-            abstractEntitiesFlattenRow(1),
-            abstractEntitiesFlattenRow(2),
-            abstractEntitiesFlattenRow(3),
-            abstractEntitiesFlattenRow(4),
-            abstractEntitiesFlattenRow(5)
+            newsId,
+            category,
+            subCategory,
+            title,
+            abstractDescription,
+            url,
+            titleLabel,
+            titleType,
+            titleWikiDataId,
+            titleConfidence,
+            tittleOccurrenceOffsets,
+            titleSurfaceForms,
+            abstractLabel,
+            abstractType,
+            abstractWikiDataId,
+            abstractConfidence,
+            abstractOccurrenceOffsets,
+            abstractSurfaceForms
           )
         }
       )
@@ -49,14 +69,14 @@ object NewsDataTransformer {
 
   private def extractEntities(titlesEntities: List[Any]): Array[String] = {
     val extractedTitle: List[String] = titlesEntities.map {
-      list =>
-        val row: String = {
-          val label = list.asInstanceOf[List[Map[String, Any]]].map(map => map(LABEL).toString)
-          val wikiDataId = list.asInstanceOf[List[Map[String, Any]]].map(map => map(WIKIDATAID).toString)
-          val confidence = list.asInstanceOf[List[Map[String, Any]]].map(map => map(CONFIDENCE).toString)
-          val titleType = list.asInstanceOf[List[Map[String, Any]]].map(map => map(TYPE).toString)
-          val occurrenceOffsets = list.asInstanceOf[List[Map[String, Any]]].map(map => map(OCCURRENCEOFFSETS).toString)
-          val surfaceForms = list.asInstanceOf[List[Map[String, Any]]].map(map => map(SURFACEFORMS).toString)
+      title =>
+        val entity: String = {
+          val label = title.asInstanceOf[List[Map[String, Any]]].map(map => map(LABEL).toString)
+          val wikiDataId = title.asInstanceOf[List[Map[String, Any]]].map(map => map(WIKIDATAID).toString)
+          val confidence = title.asInstanceOf[List[Map[String, Any]]].map(map => map(CONFIDENCE).toString)
+          val titleType = title.asInstanceOf[List[Map[String, Any]]].map(map => map(TYPE).toString)
+          val occurrenceOffsets = title.asInstanceOf[List[Map[String, Any]]].map(map => map(OCCURRENCEOFFSETS).toString)
+          val surfaceForms = title.asInstanceOf[List[Map[String, Any]]].map(map => map(SURFACEFORMS).toString)
 
 
           val wikiDataIdStringFilter = stringFilterRemoveListWord(wikiDataId)
@@ -74,8 +94,9 @@ object NewsDataTransformer {
           s"$labelString\t$wikiDataIdString\t$confidenceString\t$titleTypeString\t$occurrenceOffsetsString\t$surfaceFormsString"
 
         }
-        row
+        entity
     }
+    println(extractedTitle)
     extractedTitle.head.split("\t")
   }
 
