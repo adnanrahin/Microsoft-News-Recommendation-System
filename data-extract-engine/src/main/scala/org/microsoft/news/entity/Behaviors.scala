@@ -6,6 +6,6 @@ case class Behaviors(
                       time: String,
                       history: String,
                       impression: String,
-                      clickCounter: String,
-                      nonClickCounter: String
+                      clickCounter: Long,
+                      nonClickCounter: Long
                     )

@@ -46,8 +46,8 @@ object BehaviorsDataTransformer {
             time,
             history,
             impression,
-            clickCounter.toString,
-            nonClickCounter.toString
+            clickCounter,
+            nonClickCounter
           )
         }
       )
