@@ -3,9 +3,9 @@ package org.microsoft.news
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.microsoft.news.dataloader.NewsDataLoader
+import org.microsoft.news.dataloader.{BehaviorsDataLoader, NewsDataLoader}
 import org.microsoft.news.datawriter.DataFileWriterLocal
-import org.microsoft.news.entity.News
+import org.microsoft.news.entity.{Behaviors, News}
 
 object DataExtractEngine {
 
@@ -31,6 +31,14 @@ object DataExtractEngine {
     DataFileWriterLocal.dataWriter(dataFrame = newsDF,
       dataPath = transformDataPath,
       directoryName = "newsdata")
+
+    val behaviorsDataLoader = new BehaviorsDataLoader(s"$initialDataPath/behaviors.tsv", spark)
+    val behaviorsRDD: RDD[Behaviors] = behaviorsDataLoader.loadRDD()
+    val behaviorsDF = spark.createDataFrame(behaviorsRDD)
+
+    DataFileWriterLocal.dataWriter(dataFrame = behaviorsDF,
+      dataPath = transformDataPath,
+      directoryName = "behaviorsdatq")
 
   }
 
