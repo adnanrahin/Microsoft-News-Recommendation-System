@@ -96,7 +96,7 @@ object NewsDataTransformer {
         }
         entity
     }
-    println(extractedTitle)
+    
     extractedTitle.head.split("\t")
   }
 
