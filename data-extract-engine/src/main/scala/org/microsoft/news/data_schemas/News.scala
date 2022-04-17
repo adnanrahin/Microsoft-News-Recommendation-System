@@ -1,4 +1,4 @@
-package org.microsoft.news.entity
+package org.microsoft.news.data_schemas
 
 case class News(
                  newsId: String,

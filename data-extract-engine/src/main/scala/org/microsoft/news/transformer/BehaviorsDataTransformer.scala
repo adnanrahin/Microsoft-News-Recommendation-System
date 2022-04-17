@@ -1,7 +1,7 @@
 package org.microsoft.news.transformer
 
 import org.apache.spark.rdd.RDD
-import org.microsoft.news.entity.{Behaviors, News}
+import org.microsoft.news.data_schemas.{Behaviors, News}
 
 object BehaviorsDataTransformer {
 

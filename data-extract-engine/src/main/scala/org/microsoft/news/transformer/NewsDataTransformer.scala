@@ -3,7 +3,7 @@ package org.microsoft.news.transformer
 import org.apache.spark.rdd.RDD
 import org.apache.spark.storage.StorageLevel
 import org.microsoft.news.constant.Constant._
-import org.microsoft.news.entity.News
+import org.microsoft.news.data_schemas.News
 
 import scala.util.parsing.json.JSON
 
