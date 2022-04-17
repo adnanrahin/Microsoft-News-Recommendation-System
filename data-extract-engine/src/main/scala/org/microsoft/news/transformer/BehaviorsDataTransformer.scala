@@ -1,6 +1,7 @@
 package org.microsoft.news.transformer
 
 import org.apache.spark.rdd.RDD
+import org.apache.spark.storage.StorageLevel
 import org.microsoft.news.data_schemas.{Behaviors, News}
 
 object BehaviorsDataTransformer {
@@ -51,7 +52,7 @@ object BehaviorsDataTransformer {
           )
         }
       )
-    transformRDD
+    transformRDD.persist(StorageLevel.MEMORY_AND_DISK)
   }
 
 }
