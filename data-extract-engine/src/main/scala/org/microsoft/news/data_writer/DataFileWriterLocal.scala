@@ -1,4 +1,4 @@
-package org.microsoft.news.datawriter
+package org.microsoft.news.data_writer
 
 import org.apache.spark.sql.{DataFrame, SaveMode}
 

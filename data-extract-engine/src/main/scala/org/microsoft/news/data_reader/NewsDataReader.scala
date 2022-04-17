@@ -1,4 +1,4 @@
-package org.microsoft.news.dataloader
+package org.microsoft.news.data_reader
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
