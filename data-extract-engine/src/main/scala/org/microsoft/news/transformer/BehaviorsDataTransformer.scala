@@ -13,8 +13,8 @@ object BehaviorsDataTransformer {
       .map(
         col => {
 
-          val impressionId = col(0)
-          val userId = col(1)
+          val impressionId: String = col(0)
+          val userId: String = col(1)
           val time: String = col(2)
           val history: String = col(3)
           val impression: String = col(4)
