@@ -38,7 +38,7 @@ object DataExtractEngine {
 
     DataFileWriterLocal.dataWriter(dataFrame = behaviorsDF,
       dataPath = transformDataPath,
-      directoryName = "behaviorsdatq")
+      directoryName = "behaviorsdata")
 
   }
 
