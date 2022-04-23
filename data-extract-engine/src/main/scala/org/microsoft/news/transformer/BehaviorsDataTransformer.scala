@@ -6,9 +6,9 @@ import org.microsoft.news.data_schemas.{Behaviors, News}
 
 object BehaviorsDataTransformer {
 
-  def dataTransformer(newsRDD: RDD[String]): RDD[Behaviors] = {
+  def dataTransformer(behaviorsRDD: RDD[String]): RDD[Behaviors] = {
 
-    val transformRDD: RDD[Behaviors] = newsRDD
+    val transformRDD: RDD[Behaviors] = behaviorsRDD
       .map(row => row.split("\t", -1))
       .map(
         col => {
