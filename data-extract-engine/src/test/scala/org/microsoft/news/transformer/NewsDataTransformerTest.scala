@@ -2,7 +2,6 @@ package org.microsoft.news.transformer
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.catalyst.expressions.aggregate.Last
 import org.microsoft.news.data_schemas.News
 import org.scalatest.funsuite.AnyFunSuite
 
