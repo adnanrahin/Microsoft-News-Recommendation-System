@@ -5,6 +5,7 @@ import org.apache.spark.sql.SparkSession
 import org.microsoft.news.data_schemas.Behaviors
 import org.scalatest.funsuite.AnyFunSuite
 
+
 class BehaviorsDataTransformerTest extends AnyFunSuite {
 
   test("testDataTransformerMatch") {
