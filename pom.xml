@@ -55,7 +55,7 @@
 
     </dependencies>
 
-    <build>
+    <!--<build>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
@@ -121,6 +121,6 @@
             </plugin>
 
         </plugins>
-    </build>
+    </build>-->
 
 </project>
