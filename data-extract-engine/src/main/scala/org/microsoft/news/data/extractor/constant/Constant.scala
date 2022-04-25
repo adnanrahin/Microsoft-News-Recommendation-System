@@ -1,4 +1,4 @@
-package org.microsoft.news.constant
+package org.microsoft.news.data.extractor.constant
 
 object Constant {
 

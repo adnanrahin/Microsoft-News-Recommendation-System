@@ -1,8 +1,8 @@
-package org.microsoft.news.transformer
+package org.microsoft.news.data.extractor.transformer
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.storage.StorageLevel
-import org.microsoft.news.data_schemas.{Behaviors, News}
+import org.microsoft.news.data.extractor.data_schemas.{Behaviors, News}
 
 object BehaviorsDataTransformer {
 

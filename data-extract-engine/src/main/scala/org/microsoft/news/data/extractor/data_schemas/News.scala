@@ -1,4 +1,4 @@
-package org.microsoft.news.data_schemas
+package org.microsoft.news.data.extractor.data_schemas
 
 case class News(
                  newsId: String,

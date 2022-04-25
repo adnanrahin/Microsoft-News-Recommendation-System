@@ -1,11 +1,11 @@
-package org.microsoft.news
+package org.microsoft.news.data.extractor
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.microsoft.news.data_reader.{BehaviorsDataReader, NewsDataReader}
-import org.microsoft.news.data_writer.DataFileWriterLocal
-import org.microsoft.news.data_schemas.{Behaviors, News}
+import org.microsoft.news.data.extractor.data_reader.{BehaviorsDataReader, NewsDataReader}
+import org.microsoft.news.data.extractor.data_schemas.{Behaviors, News}
+import org.microsoft.news.data.extractor.data_writer.DataFileWriterLocal
 
 object DataExtractEngine {
 

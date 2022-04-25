@@ -1,8 +1,8 @@
-package org.microsoft.news.transformer
+package org.microsoft.news.data.extractor.transformer
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.microsoft.news.data_schemas.Behaviors
+import org.microsoft.news.data.extractor.data_schemas.Behaviors
 import org.scalatest.funsuite.AnyFunSuite
 
 
