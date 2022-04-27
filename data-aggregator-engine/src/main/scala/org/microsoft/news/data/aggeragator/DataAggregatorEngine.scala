@@ -8,7 +8,7 @@ import org.microsoft.news.data.extractor.data_schemas.{Behaviors, News}
 import org.microsoft.news.data.extractor.data_writer.DataFileWriterLocal
 
 object DataAggregatorEngine {
-
+ 
   def main(args: Array[String]): Unit = {
 
     Logger.getLogger("org").setLevel(Level.ERROR)
