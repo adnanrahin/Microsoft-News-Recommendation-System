@@ -23,7 +23,6 @@ object DataAggregatorEngine {
       .master(master = masterNode)
       .getOrCreate()
 
-
     val newsDataLoader = new NewsDataReader(s"$initialDataPath/news.tsv", spark)
     val newsRDD: RDD[News] = newsDataLoader.readDataToRDD()
     val newsDF = spark.createDataFrame(newsRDD)
