@@ -26,7 +26,8 @@
             <groupId>org.microsoft.news.data.extractor</groupId>
             <artifactId>data-extract-engine</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>system</scope>
+            <systemPath>C:/Users/rahin/source-code/Scala/Microsoft-News-Recommendation-System/data-extract-engine/target/data-extract-engine-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
 
     </dependencies>
