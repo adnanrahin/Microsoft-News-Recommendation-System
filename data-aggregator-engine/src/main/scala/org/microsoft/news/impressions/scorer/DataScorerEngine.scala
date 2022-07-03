@@ -1,4 +1,4 @@
-package org.microsoft.news.data.aggeragator
+package org.microsoft.news.impressions.scorer
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
@@ -7,7 +7,7 @@ import org.microsoft.news.data.extractor.data_reader.{BehaviorsDataReader, NewsD
 import org.microsoft.news.data.extractor.data_schemas.{Behaviors, News}
 import org.microsoft.news.data.extractor.data_writer.DataFileWriterLocal
 
-object DataAggregatorEngine {
+object DataScorerEngine {
 
   def main(args: Array[String]): Unit = {
 
