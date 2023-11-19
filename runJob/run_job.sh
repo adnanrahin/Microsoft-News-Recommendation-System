@@ -2,8 +2,8 @@
 
 SPARK_HOME=$SPARK_HOME
 APP_JAR="/home/rahin/source-code/spark/Microsoft-News-Recommendation-System/data-extract-engine/target/data-extract-engine-1.0-SNAPSHOT.jar"
-INPUT_PATH="/home/rahin/data/microsoft-news-recommendation-data/data-set/"
-OUTPUT_PATH="/home/rahin/data/microsoft-news-recommendation-data/transform-data"
+INPUT_PATH="/sandbox/storage/data/microsoft-news-recommendation-data/data-set/"
+OUTPUT_PATH="/sandbox/storage/data/microsoft-news-recommendation-data/transform-data"
 
 $SPARK_HOME/bin/spark-submit \
     --master spark://dev-server01:7077 \
